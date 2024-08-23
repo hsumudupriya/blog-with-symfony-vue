@@ -1,2 +1,3 @@
-# blog-with-symfony-vue
-A blog with Symfony API and Vue front-end.
+# Blog API with Symfony
+
+Please see the instructions in the PDF to initialise this project.
