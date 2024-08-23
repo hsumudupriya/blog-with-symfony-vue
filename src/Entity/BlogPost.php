@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -11,6 +14,8 @@ use ApiPlatform\Metadata\Post;
 use App\Repository\BlogPostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Validate;
 
 #[ORM\Entity(repositoryClass: BlogPostRepository::class)]
 #[ApiResource(
@@ -30,15 +35,25 @@ class BlogPost
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Validate\NotBlank]
+    #[Validate\Length(min: 10)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT)]    
+    #[Validate\NotBlank]
+    #[Validate\Url]
     private ?string $picture = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
+    #[Validate\NotBlank]
+    #[Validate\Length(min: 100)]
     private ?string $content = null;
 
     #[ORM\Column]
+    #[ApiFilter(BooleanFilter::class)]
+    #[Validate\NotBlank]
+    #[Validate\Type(Types::BOOLEAN)]
     private ?bool $isPublished = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
@@ -92,6 +107,12 @@ class BlogPost
         $this->content = $content;
 
         return $this;
+    }
+
+    #[Groups(['BlogPost:read'])]
+    public function getShortContent(): ?string
+    {
+        return \Symfony\Component\String\u($this->content)->truncate(100, '...');
     }
 
     public function getIsPublished(): ?bool
