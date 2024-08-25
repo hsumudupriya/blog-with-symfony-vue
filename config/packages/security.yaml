@@ -45,7 +45,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-when@test:
+when@test: &test
     security:
         password_hashers:
             # By default, password hashers are resource intensive and take time. This is
@@ -57,3 +57,7 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+
+# copy the configurations for security > password_hashers from test environment.
+# https://github.com/symfony/symfony/issues/45506
+when@dev: *test
