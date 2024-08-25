@@ -4,5 +4,12 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-api_login_check:
-    path: /api/login_check
+# redirect the homepage to the API documentation
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: '/api'
+
+api_login:
+    path: /api/login
