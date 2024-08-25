@@ -11,7 +11,12 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        UserFactory::createMany(1);
+        // create a test user for the API documentation
+        UserFactory::findOrCreate([
+            "email" => "test@api.com",
+            "password"=> "abc123",
+        ]);
+        // create test blog posts.
         BlogPostFactory::createMany(number: 40);
     }
 }
