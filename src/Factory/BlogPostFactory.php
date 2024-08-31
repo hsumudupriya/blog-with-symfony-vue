@@ -15,9 +15,7 @@ final class BlogPostFactory extends PersistentProxyObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public static function class(): string
     {
@@ -34,7 +32,7 @@ final class BlogPostFactory extends PersistentProxyObjectFactory
         $title = self::faker()->sentence();
 
         return [
-            'content' => self::faker()->paragraph(),
+            'content' => self::faker()->sentence(nbWords: 100),
             'isPublished' => self::faker()->boolean(),
             'picture' => self::faker()->imageUrl(word: $title),
             'title' => $title,
