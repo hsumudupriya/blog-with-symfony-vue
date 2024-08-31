@@ -38,8 +38,8 @@ class AuthenticationTest extends ApiTestCase
     {
         // create a test user
         UserFactory::findOrCreate([
-            "email" => 'test@api.com',
-            "password" => 'abc123',
+            'email' => 'test@api.com',
+            'password' => 'abc123',
         ]);
 
         // try retrieving a token with invalid credentials
@@ -52,6 +52,8 @@ class AuthenticationTest extends ApiTestCase
         // assert the status code of the response is 401 and does not contain a token
         $this->assertResponseStatusCodeSame(401);
         $this->assertArrayNotHasKey('token', $array);
+        // assert the response contains an error message
+        $this->assertArrayHasKey('message', $array);
     }
 
     public function testLoginRequestReturnsToken(): void
@@ -61,8 +63,8 @@ class AuthenticationTest extends ApiTestCase
         $password = 'abc123';
 
         UserFactory::findOrCreate([
-            "email" => $email,
-            "password" => $password,
+            'email' => $email,
+            'password' => $password,
         ]);
 
         // try retrieving a token with invalid credentials
