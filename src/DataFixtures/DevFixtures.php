@@ -13,8 +13,8 @@ class DevFixtures extends Fixture
     {
         // create a test user for the API documentation
         UserFactory::findOrCreate([
-            "email" => "test@api.com",
-            "password" => "abc123",
+            'email' => 'test@api.com',
+            'password' => 'abc123',
         ]);
         // create test blog posts.
         BlogPostFactory::createMany(number: 40);
