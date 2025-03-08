@@ -1,6 +1,6 @@
 ## About
 
-This is a Symfony application developed by [Hasanta Sumudupriya](https://www.linkedin.com/in/hsumudupriya) as a technical task for PeopleInNeed. The objective of the application is to provide a RESTful API for a simple blog application.
+The objective of this application is to provide a RESTful API for a simple blog application.
 
 The application contains following features.
 
